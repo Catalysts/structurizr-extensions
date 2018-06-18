@@ -1,0 +1,93 @@
+buildscript {
+    ext.bintrayUser    = project.hasProperty('bintrayUser') ? project.bintrayUser : System.getenv('BINTRAY_USER')
+    ext.bintrayKey     = project.hasProperty('bintrayKey')  ? project.bintrayKey  : System.getenv('BINTRAY_KEY')
+    ext.bintrayEnabled = project.bintrayUser && project.bintrayKey
+    ext.sonatypeUser   = project.hasProperty('sonatypeUser') ? project.sonatypeUser : System.getenv('SONATYPE_USER')
+    ext.sonatypeKey    = project.hasProperty('sonatypeKey') ? project.sonatypeKey : System.getenv('SONATYPE_KEY')
+    ext.mavenCentralSyncEnabled = project.sonatypeUser && project.sonatypeKey
+    
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url "http://repo.spring.io/milestone" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.3'
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.13'
+    }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.4.RELEASE"
+}
+
+apply from: 'properties.gradle'
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'io.spring.dependency-management'
+
+
+    description = 'Structurizr Extensions'
+    group cbGroup
+    version cbVersion
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.0.3.RELEASE")
+        }
+        dependencies {
+            dependency "com.structurizr:structurizr-core:${ext['structurizr.version']}"
+            dependency "com.structurizr:structurizr-client:${ext['structurizr.version']}"
+        }
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    // package sources
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allSource
+        classifier = 'sources'
+    }
+
+    // package javadoc
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+
+    if (bintrayEnabled) {
+        apply plugin: 'com.jfrog.bintray'
+        apply from: "$rootProject.projectDir/jcenter.gradle"
+        apply from: "$rootProject.projectDir/artifactory.gradle"
+        apply from: "$rootProject.projectDir/maven.gradle"
+
+        /* artifactory only for snapshots */
+        artifactoryPublish.onlyIf {
+            (version ==~ /.*SNAPSHOT/)
+        }
+
+        /* releases only for bintray */
+        bintrayUpload.onlyIf {
+            !(version ==~ /.*SNAPSHOT/)
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+}

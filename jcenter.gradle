@@ -1,0 +1,30 @@
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    configurations = ['archives']
+    publish = true
+    pkg {
+        repo = 'catalysts-jars'
+        name = 'cat-boot'
+        userOrg = 'catalysts'
+        websiteUrl = cbWebsite
+        issueTrackerUrl = cbTracker
+        vcsUrl = cbGit
+        desc = cbDescription
+        licenses = ['Apache-2.0']
+        publications = ['mavenJava']
+        publicDownloadNumbers = true
+        version {
+            name = cbVersion
+            desc = cbDescription
+            if(mavenCentralSyncEnabled) {
+                mavenCentralSync {
+                    sync = true
+                    user = sonatypeUser
+                    password = sonatypeKey
+                    close = '1'
+                }
+            }
+        }
+    }
+}

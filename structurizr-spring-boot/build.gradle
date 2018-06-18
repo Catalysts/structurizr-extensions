@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+configure(allprojects) {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: 'propdeps-eclipse'
+}
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile 'org.slf4j:slf4j-api'
+
+    compile 'com.structurizr:structurizr-core'
+    compile 'com.structurizr:structurizr-client'
+
+    compile 'org.springframework.boot:spring-boot'
+
+    compile 'com.google.code.findbugs:jsr305:3.0.2'
+
+    optional "org.springframework.boot:spring-boot-configuration-processor"
+
+    testCompile 'org.springframework.boot:spring-boot-starter'
+}

@@ -1,0 +1,52 @@
+apply plugin: 'maven'
+
+project.ext.innerPom = { // used by mavenInstaller
+    project {
+        packaging 'jar'
+        version cbVersion
+        groupId cbGroup
+        artifactId project.name
+
+        name project.name
+        description cbDescription
+        url cbWebsite
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+
+        developers {
+            developer {
+                name 'Klaus Lehner'
+                organizationUrl 'https://www.catalysts.cc'
+            }
+            developer {
+                name 'Thomas Scheinecker'
+                organizationUrl 'https://www.catalysts.cc'
+            }
+        }
+
+        // http://central.sonatype.org/pages/requirements.html
+        scm {
+            connection "scm:git:${cbGit}"
+            developerConnection "scm:git:${cbGit}"
+            url cbWebsite
+        }
+
+        issueManagement {
+            url cbTracker
+        }
+    }
+}
+
+project.ext.pomXml = pom innerPom // used by mavenJava publication in artifactory
+
+install {
+    repositories.mavenInstaller {
+        // will not work with just pomXml
+        pom innerPom
+    }
+}

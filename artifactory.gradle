@@ -1,0 +1,65 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.artifactory'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId cbGroup
+            artifactId project.name
+            version cbVersion
+            from components.java
+            artifact sourceJar
+            artifact javadocJar
+
+            pom.withXml { xmlProvider ->
+                // Create string from project.ext.pomXml
+                def pomString = new StringWriter()
+                pomXml.writeTo(pomString)
+                pomString = pomString.toString()
+
+                // Replace default xml with pomXml
+                def xmlStringBuilder = xmlProvider.asString()
+                xmlStringBuilder.setLength(0)
+                xmlStringBuilder.append(pomString)
+            }
+
+            pom.withXml {
+                def root = asNode()
+
+                if (root.dependencies) {
+                    // eliminate test-scoped dependencies (no need in maven central POMs)
+                    /* TODO: not working
+                    root.dependencies.removeAll { dep ->
+                        (dep.scope.text() == 'test')
+                    }
+                    */
+
+                    root.dependencies.get(0).dependency.each() { dep ->
+                        String pomVer = dep.get("version").text();
+                        String pomArtifactId = dep.get("artifactId").text();
+                        String pomGroupId = dep.get("groupId").text();
+                        if(pomVer.isEmpty()){
+                            def depVer = project.dependencyManagement.dependencyManagementContainer.globalDependencyManagement.versions["$pomGroupId:$pomArtifactId"]
+                            dep.appendNode('version',depVer)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'https://oss.jfrog.org/artifactory'
+    publish {
+        repository {
+            repoKey = 'oss-snapshot-local'
+            username = bintrayUser
+            password = bintrayKey
+            maven = true
+        }
+        defaults {
+            publications('mavenJava')
+        }
+    }
+}
