@@ -5,7 +5,7 @@ bintray {
     publish = true
     pkg {
         repo = 'catalysts-jars'
-        name = 'cat-boot'
+        name = 'structurizr-extensions'
         userOrg = 'catalysts'
         websiteUrl = cbWebsite
         issueTrackerUrl = cbTracker
