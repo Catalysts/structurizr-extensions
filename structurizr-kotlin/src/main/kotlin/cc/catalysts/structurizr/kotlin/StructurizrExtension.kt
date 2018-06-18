@@ -3,12 +3,15 @@ package cc.catalysts.structurizr.kotlin
 import com.structurizr.model.*
 
 /**
- * @author Klaus Lehner, Catalysts GmbH
+ * Adds a new [SoftwareSystem] to this [Model] and returns the new [SoftwareSystem]. Use the [init] function to add further [Container]s.
  */
 fun Model.addSoftwareSystem(name: String, description: String, init: ElementConfiguration.() -> Unit): SoftwareSystem {
     return this.addSoftwareSystem(Location.Unspecified, name, description, init)
 }
 
+/**
+ * Adds a new [SoftwareSystem] to this [Model] and returns the new [SoftwareSystem]. Use the [init] function to add further [Container]s.
+ */
 fun Model.addSoftwareSystem(location: Location = Location.Unspecified, name: String, description: String, init: ElementConfiguration.() -> Unit): SoftwareSystem {
     val softwareSystem = this.addSoftwareSystem(location, name, description);
     val config: ElementConfiguration = ElementConfiguration().apply(init)
@@ -31,6 +34,9 @@ fun Model.addSoftwareSystem(location: Location = Location.Unspecified, name: Str
     return softwareSystem;
 }
 
+/**
+ * Adds a new [Container] with the name [name] to this SoftwareSystem and returns new [Container]. Use the [init] function to add further [Component]s.
+ */
 fun SoftwareSystem.addContainer(name: String, description: String, vararg technologies: String, init: ElementConfiguration.() -> Unit): Container {
     val container = this.addContainer(name, description, technologies.joinToString())
     val config: ElementConfiguration = ElementConfiguration().apply(init)
@@ -53,6 +59,9 @@ fun SoftwareSystem.addContainer(name: String, description: String, vararg techno
     return container
 }
 
+/**
+ * Adds a new [Component] with the name [name] to this container and returns new [Component]
+ */
 fun Container.addComponent(name: String, description: String, vararg technologies: String, init: ElementConfiguration.() -> Unit): Component {
     val component = this.addComponent(name, description, technologies.joinToString())
     val config: ElementConfiguration = ElementConfiguration().apply(init)
