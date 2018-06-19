@@ -5,6 +5,8 @@ or all together.
 
 All libraries can be embedded with Maven or Gradle via JCenter.
 
+[![Build Status](https://travis-ci.org/Catalysts/structurizr-extensions.svg?branch=master)](https://travis-ci.org/Catalysts/structurizr-extensions)
+
 
 ## Structurizr for Spring Boot
 
