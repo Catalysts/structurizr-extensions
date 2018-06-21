@@ -18,29 +18,9 @@ public class StructurizrProperties {
     private String url = "https://api.structurizr.com";
 
     /**
-     * Workspace identifier.
+     * Object containing all properties of your workspace at Structurizr
      */
-    private long workspaceId;
-
-    /**
-     * Workspace API key.
-     */
-    private String key;
-
-    /**
-     * Workspace API secret.
-     */
-    private String secret;
-
-    /**
-     * Workspace name.
-     */
-    private String name;
-
-    /**
-     * Workspace description.
-     */
-    private String description;
+    private Workspace workspace;
 
     /**
      * Directory to use to archive workspaces.
@@ -52,50 +32,12 @@ public class StructurizrProperties {
      */
     private boolean addImplicitRelationships = true;
 
+
     /**
      * Whether to put the workspace to the structurizr server after the model has been fully initialized.
      */
     private boolean performMerge = true;
 
-    public long getWorkspaceId() {
-        return workspaceId;
-    }
-
-    public void setWorkspaceId(long workspaceId) {
-        this.workspaceId = workspaceId;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getUrl() {
         return url;
@@ -127,5 +69,80 @@ public class StructurizrProperties {
 
     public void setAddImplicitRelationships(boolean addImplicitRelationships) {
         this.addImplicitRelationships = addImplicitRelationships;
+    }
+
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
+    }
+
+    public static class Workspace {
+        /**
+         * Workspace identifier.
+         */
+        private long id;
+
+        /**
+         * Workspace API key.
+         */
+        private String key;
+
+        /**
+         * Workspace API secret.
+         */
+        private String secret;
+
+        /**
+         * Workspace name.
+         */
+        private String name;
+
+        /**
+         * Workspace description.
+         */
+        private String description;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getSecret() {
+            return secret;
+        }
+
+        public void setSecret(String secret) {
+            this.secret = secret;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
     }
 }

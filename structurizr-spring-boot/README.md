@@ -76,15 +76,16 @@ public class Architecture {
 
 No more imports required here, CatBootStructurizr will be picked up automatically by Spring Boot's AutoConfiguration-mechanism.
 
-Configuration of your structurizr workspace is done in ``application.properties``:
+Configuration of your structurizr workspace is done in ``application.yaml``:
 
-```properties
-structurizr.workspace-id=26741
-structurizr.key=e21bee9d-e5af-4153-bbf4-d44aa3a8e6bd 
-structurizr.secret=secret
-
-structurizr.name=Cat-Boot-Structurizr 
-structurizr.description=This is a sample workspace demonstrating cat-boot-structurizr
+```yaml
+structurizr:
+  workspace:
+    id: 26741
+    name: Cat-Boot-Structurizr 
+    description: This is a sample workspace demonstrating cat-boot-structurizr
+    key: e21bee9d-e5af-4153-bbf4-d44aa3a8e6bd 
+    secret: secret
 ```
 
 That's all you need to do to create an empty model and to push it to Structurizr.

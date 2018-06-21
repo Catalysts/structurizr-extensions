@@ -30,12 +30,12 @@ public class StructurizrAutoConfiguration {
 
     @Bean
     public Workspace workspace(StructurizrProperties config) {
-        return new Workspace(config.getName(), config.getDescription());
+        return new Workspace(config.getWorkspace().getName(), config.getWorkspace().getDescription());
     }
 
     @Bean
     public StructurizrClient structurizrClient(StructurizrProperties config) {
-        StructurizrClient structurizrClient = new StructurizrClient(config.getUrl(), config.getKey(), config.getSecret());
+        StructurizrClient structurizrClient = new StructurizrClient(config.getUrl(), config.getWorkspace().getKey(), config.getWorkspace().getSecret());
         structurizrClient.setWorkspaceArchiveLocation(config.getWorkspaceArchiveLocation());
         return structurizrClient;
     }

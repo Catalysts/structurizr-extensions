@@ -64,7 +64,7 @@ public class StructurizrService implements ApplicationListener<ContextRefreshedE
 
         if (properties.isPerformMerge()) {
             try {
-                structurizrClient.putWorkspace(properties.getWorkspaceId(), workspace);
+                structurizrClient.putWorkspace(properties.getWorkspace().getId(), workspace);
             } catch (StructurizrClientException e) {
                 LOG.error("Could not put workspace.", e);
                 throw new RuntimeException(e);
