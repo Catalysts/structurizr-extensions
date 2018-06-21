@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 /**
  * <p>This is the main class of the architecture application. It starts as a {@link SpringBootApplication}, thus
- * also automatically configuring {@link cc.catalysts.boot.structurizr.config.StructurizrAutoConfiguration}.</p>
+ * also automatically configuring {@link cc.catalysts.structurizr.config.StructurizrAutoConfiguration}.</p>
  *
  * <p>The properties are taken from <code>application.properties</code>.</p>
  *

@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.model.Tags;
 import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class StyleProvider {
 
-    @Autowired
     public StyleProvider(Workspace workspace) {
         Styles styles = workspace.getViews().getConfiguration().getStyles();
         styles.addElementStyle(Tags.ELEMENT).width(500).height(350).color("#ffffff").fontSize(30).shape(Shape.RoundedBox);
