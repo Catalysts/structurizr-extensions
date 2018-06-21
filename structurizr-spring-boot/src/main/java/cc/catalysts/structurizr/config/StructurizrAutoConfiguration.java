@@ -14,21 +14,27 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackageClasses = StructurizrService.class)
-@EnableConfigurationProperties(value = {StructurizrConfigurationProperties.class})
+@EnableConfigurationProperties(value = {StructurizrProperties.class})
 public class StructurizrAutoConfiguration {
 
     @Bean
-    Model model(Workspace workspace) {
+    public StructurizrService structurizrService(StructurizrClient structurizrClient, Workspace workspace,
+                                                 StructurizrProperties properties) {
+         return new StructurizrService(structurizrClient, workspace, properties);
+    }
+
+    @Bean
+    public Model model(Workspace workspace) {
         return workspace.getModel();
     }
 
     @Bean
-    Workspace workspace(StructurizrConfigurationProperties config) {
+    public Workspace workspace(StructurizrProperties config) {
         return new Workspace(config.getName(), config.getDescription());
     }
 
     @Bean
-    StructurizrClient structurizrClient(StructurizrConfigurationProperties config) {
+    public StructurizrClient structurizrClient(StructurizrProperties config) {
         StructurizrClient structurizrClient = new StructurizrClient(config.getUrl(), config.getKey(), config.getSecret());
         structurizrClient.setWorkspaceArchiveLocation(config.getWorkspaceArchiveLocation());
         return structurizrClient;

@@ -1,58 +1,59 @@
 package cc.catalysts.structurizr.config;
 
-import com.structurizr.Workspace;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.File;
 
 /**
+ * Configuration properties for Structurizr.
+ *
  * @author Klaus Lehner, Catalysts GmbH
  */
 @ConfigurationProperties("structurizr")
-public class StructurizrConfigurationProperties {
+public class StructurizrProperties {
 
     /**
-     * The URL of Structurizr
+     * The URL of Structurizr.
      */
     private String url = "https://api.structurizr.com";
 
     /**
-     * The ID of your workspace in Structurizr
+     * Workspace identifier.
      */
     private long workspaceId;
 
     /**
-     * The API key of your workspace in Structurizr
+     * Workspace API key.
      */
     private String key;
 
     /**
-     * The API secret of your workspace in Structurizr
+     * Workspace API secret.
      */
     private String secret;
 
     /**
-     * The name of your workspace
+     * Workspace name.
      */
     private String name;
 
     /**
-     * The description of your workspace
+     * Workspace description.
      */
     private String description;
 
     /**
-     * Set this property to a directory on your drive to archive your workspaces
+     * Directory to use to archive workspaces.
      */
-    private File workspaceArchiveLocation = null;
+    private File workspaceArchiveLocation;
 
     /**
-     * If true, the method {@link Workspace#getModel()#addImplicitRelationships} will be called after the model has been initialized
+     * Propagates all relationships from children to their parents.
      */
     private boolean addImplicitRelationships = true;
 
     /**
-     * If this property is true, the workspace will be put to the structurizr server after the model has been fully initialized
+     * Whether to put the workspace to the structurizr server after the model has been fully initialized.
      */
     private boolean performMerge = true;
 
