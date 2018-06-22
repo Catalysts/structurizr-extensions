@@ -1,7 +1,6 @@
 package cc.catalysts.structurizr;
 
 import com.structurizr.view.ViewSet;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.Nonnull;
@@ -22,10 +21,6 @@ import javax.annotation.Nonnull;
  */
 @SpringBootApplication
 public class Architecture implements ViewProvider {
-
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(Architecture.class, args);
-    }
 
     @Override
     public void createViews(@Nonnull ViewSet viewSet) {

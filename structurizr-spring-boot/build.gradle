@@ -21,5 +21,8 @@ dependencies {
 
     optional "org.springframework.boot:spring-boot-configuration-processor"
 
-    testCompile 'org.springframework.boot:spring-boot-starter'
+    testCompile 'org.springframework.boot:spring-boot-test'
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit'
+    }
 }
