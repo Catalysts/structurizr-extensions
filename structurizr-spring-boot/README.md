@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compile 'cc.catalysts.structurizr:structurizr-spring-boot:1.0.0'
+    compile 'cc.catalysts.structurizr:structurizr-spring-boot:1.0.1'
     compile "org.springframework.boot:spring-boot-starter:2.0.3.RELEASE"
 }
 ```
