@@ -1,0 +1,8 @@
+structurizr:
+  workspace:
+    id: 26741
+    name: Cat-Boot-Structurizr
+    description: This is a sample workspace demonstrating cat-boot-structurizr
+    key: e21bee9d-e5af-4153-bbf4-d44aa3a8e6bd
+    secret: secret
+  performMerge: false
