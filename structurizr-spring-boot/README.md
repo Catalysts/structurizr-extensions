@@ -90,6 +90,14 @@ structurizr:
 
 That's all you need to do to create an empty model and to push it to Structurizr.
 
+Client-side encryption according to https://github.com/structurizr/java/blob/master/docs/client-side-encryption.md can be added using a single additional property.
+```yaml
+structurizr:
+  workspace:
+    ...
+    encryptionPassphrase: passphrase
+```
+
 To add elements to your Structurizr-Model now create Java classes, mark them as Spring Components, let the Structurizr Model
 be injected and create elements inside the constructur of your classes:
 
