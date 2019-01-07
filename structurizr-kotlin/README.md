@@ -27,7 +27,7 @@ To do that with Kotlin, just add the dependency with Maven or Gradle:
 
 ```groovy
 dependencies {
-    compile 'cc.catalysts.structurizr:structurizr-kotlin:1.0.1'
+    compile 'cc.catalysts.structurizr:structurizr-kotlin:1.2.0'
 }
 ``` 
 
