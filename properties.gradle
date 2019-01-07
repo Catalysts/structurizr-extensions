@@ -1,5 +1,5 @@
 ext.cbGroup = 'cc.catalysts.structurizr'
-ext.cbVersion = '1.0.2'
+ext.cbVersion = '1.2.0'
 ext.cbWebsite = 'https://github.com/Catalysts/structurizr-extensions'
 ext.cbTracker = 'https://github.com/Catalysts/structurizr-extensions/issues'
 ext.cbGit = 'https://github.com/Catalysts/structurizr-extensions.git'
