@@ -105,6 +105,11 @@ public class StructurizrProperties {
          */
         private String description;
 
+        /**
+         * Workspace client-side encryption passphrase
+         */
+        private String encryptionPassphrase;
+
         public long getId() {
             return id;
         }
@@ -143,6 +148,14 @@ public class StructurizrProperties {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getEncryptionPassphrase() {
+            return encryptionPassphrase;
+        }
+
+        public void setEncryptionPassphrase(String encryptionPassphrase) {
+            this.encryptionPassphrase = encryptionPassphrase;
         }
     }
 }
