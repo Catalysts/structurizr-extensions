@@ -43,17 +43,17 @@ fun SoftwareSystem.addContainer(name: String, description: String, vararg techno
     config.tags.forEach { t -> container.addTags(t) }
     config.uses.forEach({ d ->
         when (d.element) {
-            is SoftwareSystem -> container.uses(d.element, d.description, d.technology)
-            is Container -> container.uses(d.element, d.description, d.technology)
-            is Component -> container.uses(d.element, d.description, d.technology)
+            is SoftwareSystem -> container.uses(d.element, d.description, d.technology, d.interactionStyle)
+            is Container -> container.uses(d.element, d.description, d.technology, d.interactionStyle)
+            is Component -> container.uses(d.element, d.description, d.technology, d.interactionStyle)
         }
     })
     config.usedBy.forEach({ d ->
         when (d.element) {
-            is SoftwareSystem -> d.element.uses(container, d.description, d.technology)
-            is Container -> d.element.uses(container, d.description, d.technology)
-            is Component -> d.element.uses(container, d.description, d.technology)
-            is Person -> d.element.uses(container, d.description, d.technology)
+            is SoftwareSystem -> d.element.uses(container, d.description, d.technology, d.interactionStyle)
+            is Container -> d.element.uses(container, d.description, d.technology, d.interactionStyle)
+            is Component -> d.element.uses(container, d.description, d.technology, d.interactionStyle)
+            is Person -> d.element.uses(container, d.description, d.technology, d.interactionStyle)
         }
     })
     return container
@@ -68,17 +68,17 @@ fun Container.addComponent(name: String, description: String, vararg technologie
     config.tags.forEach { t -> component.addTags(t) }
     config.uses.forEach({ d ->
         when (d.element) {
-            is SoftwareSystem -> component.uses(d.element, d.description, d.technology)
-            is Container -> component.uses(d.element, d.description, d.technology)
-            is Component -> component.uses(d.element, d.description, d.technology)
+            is SoftwareSystem -> component.uses(d.element, d.description, d.technology, d.interactionStyle)
+            is Container -> component.uses(d.element, d.description, d.technology, d.interactionStyle)
+            is Component -> component.uses(d.element, d.description, d.technology, d.interactionStyle)
         }
     })
     config.usedBy.forEach({ d ->
         when (d.element) {
-            is SoftwareSystem -> d.element.uses(component, d.description, d.technology)
-            is Container -> d.element.uses(component, d.description, d.technology)
-            is Component -> d.element.uses(component, d.description, d.technology)
-            is Person -> d.element.uses(component, d.description, d.technology)
+            is SoftwareSystem -> d.element.uses(component, d.description, d.technology, d.interactionStyle)
+            is Container -> d.element.uses(component, d.description, d.technology, d.interactionStyle)
+            is Component -> d.element.uses(component, d.description, d.technology, d.interactionStyle)
+            is Person -> d.element.uses(component, d.description, d.technology, d.interactionStyle)
         }
     })
     return component
@@ -94,12 +94,12 @@ class ElementConfiguration {
         this.tags.addAll(tag)
     }
 
-    fun uses(element: Element, description: String, vararg technologies: String) {
-        this.uses.add(Dependency(element, description, concat(technologies)))
+    fun uses(element: Element, description: String, vararg technologies: String, interactionStyle: InteractionStyle? = null) {
+        this.uses.add(Dependency(element, description, concat(technologies), interactionStyle))
     }
 
-    fun usedBy(element: Element, description: String, vararg technologies: String) {
-        this.usedBy.add(Dependency(element, description, concat(technologies)))
+    fun usedBy(element: Element, description: String, vararg technologies: String, interactionStyle: InteractionStyle? = null) {
+        this.usedBy.add(Dependency(element, description, concat(technologies), interactionStyle))
     }
 
     private fun concat(values: Array<out String>): String {
@@ -107,4 +107,4 @@ class ElementConfiguration {
     }
 }
 
-data class Dependency(val element: Element, val description: String, val technology: String)
+data class Dependency(val element: Element, val description: String, val technology: String, val interactionStyle: InteractionStyle? = null)

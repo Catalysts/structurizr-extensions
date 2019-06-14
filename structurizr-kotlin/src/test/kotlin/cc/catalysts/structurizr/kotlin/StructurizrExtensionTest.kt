@@ -1,6 +1,7 @@
 package cc.catalysts.structurizr.kotlin
 
 import com.structurizr.Workspace
+import com.structurizr.model.InteractionStyle
 
 /**
  * @author Klaus Lehner, Catalysts GmbH
@@ -22,6 +23,11 @@ class StructurizrExtensionTest {
 
         val container3 = softwareSystem.addContainer("Container 3", "") {
             usedBy(container2, "", "Soap")
+        }
+
+        val container4 = softwareSystem.addContainer("Container 4", "", "Kotlin") {
+            usedBy(container3, "", "REST", interactionStyle = InteractionStyle.Synchronous)
+            uses(container1, "", "SOAP", interactionStyle = InteractionStyle.Asynchronous)
         }
     }
 }
