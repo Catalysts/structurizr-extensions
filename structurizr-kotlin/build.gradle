@@ -1,27 +1,8 @@
-buildscript {
-    ext {
-        kotlin_version = '1.3.50'
-    }
-    repositories {
-        jcenter()
-        maven { url 'http://repo.spring.io/plugins-release' }
-    }
-
-    dependencies {
-        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlin_version}"
-    }
-}
-
 apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'kotlin-kapt'
 
 dependencies {
     compile 'com.structurizr:structurizr-core'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
-    runtime "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
-
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.3.31"
+    runtime "org.jetbrains.kotlin:kotlin-reflect:1.3.31"
 }
