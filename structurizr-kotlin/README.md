@@ -10,7 +10,7 @@ Workspace workspace = new Workspace("My Workspace", "")
 Model model = workspace.getModel()
 
 SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System 1", "");
-softwareSystem.addTags(Tag 1", "Tag2")
+softwareSystem.addTags("Tag 1", "Tag2")
 
 Container container1 = softwareSystem.addContainer("Container 1", "");
 container1.addTags("Tag2")
