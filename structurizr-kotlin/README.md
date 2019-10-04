@@ -12,6 +12,9 @@ Model model = workspace.getModel()
 SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System 1", "");
 softwareSystem.addTags("Tag 1", "Tag2")
 
+Person actor = model.addPerson("Actor", "")
+actor.uses(softwareSystem, "", "REST")
+
 Container container1 = softwareSystem.addContainer("Container 1", "");
 container1.addTags("Tag2")
 
@@ -38,6 +41,8 @@ val workspace = Workspace("My Workspace", "")
 val model = workspace.model
 
 val softwareSystem = model.addSoftwareSystem("Software System 1", "") { withTags("Tag 1", "Tag2") }
+    
+val actor = model.addPerson("Actor", "") { uses(softwareSystem, "", "REST") }
 
 val container1 = softwareSystem.addContainer("Container 1", "") { withTags("Tag2") }
 
