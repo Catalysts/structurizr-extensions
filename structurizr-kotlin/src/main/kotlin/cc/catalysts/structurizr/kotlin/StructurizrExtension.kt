@@ -35,6 +35,28 @@ fun Model.addSoftwareSystem(location: Location = Location.Unspecified, name: Str
 }
 
 /**
+ * Adds a new [Person] to this [Model] and returns the new [Person].
+ */
+fun Model.addPerson(
+    name: String,
+    description: String,
+    location: Location = Location.Unspecified,
+    init: ElementConfiguration.() -> Unit
+): Person {
+    val person = this.addPerson(location, name, description);
+    val config: ElementConfiguration = ElementConfiguration().apply(init)
+    config.tags.forEach { t -> person.addTags(t) }
+    config.uses.forEach { d ->
+        when (val element = d.element) {
+            is SoftwareSystem -> person.uses(element, d.description, d.technology)
+            is Container -> person.uses(element, d.description, d.technology)
+            is Component -> person.uses(element, d.description, d.technology)
+        }
+    }
+    return person
+}
+
+/**
  * Adds a new [Container] with the name [name] to this SoftwareSystem and returns new [Container]. Use the [init] function to add further [Component]s.
  */
 fun SoftwareSystem.addContainer(name: String, description: String, vararg technologies: String, init: ElementConfiguration.() -> Unit): Container {
