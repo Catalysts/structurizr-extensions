@@ -12,7 +12,13 @@ class StructurizrExtensionTest {
         val workspace = Workspace("My Workspace", "")
         val model = workspace.model
 
-        val softwareSystem = model.addSoftwareSystem("Software System 1", "") { withTags("Tag 1", "Tag2") }
+        val softwareSystem = model.addSoftwareSystem("Software System 1", "") {
+            withTags("Tag 1", "Tag2")
+        }
+
+        val actor = model.addPerson("Actor", "") {
+            uses(softwareSystem, "", "REST")
+        }
 
         val container1 = softwareSystem.addContainer("Container 1", "") { withTags("Tag2") }
 
