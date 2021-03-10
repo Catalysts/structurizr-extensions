@@ -9,14 +9,14 @@ import com.structurizr.api.StructurizrClientException;
 import com.structurizr.model.Relationship;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.core.annotation.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static cc.catalysts.structurizr.service.StructurizrService.ORDER;
 
@@ -24,7 +24,7 @@ import static cc.catalysts.structurizr.service.StructurizrService.ORDER;
  * @author Klaus Lehner, Catalysts GmbH
  */
 @Order(ORDER)
-public class StructurizrService implements ApplicationListener<ContextRefreshedEvent> {
+public class StructurizrService implements CommandLineRunner {
 
     public static final int ORDER = 0;
 
@@ -33,17 +33,19 @@ public class StructurizrService implements ApplicationListener<ContextRefreshedE
     private final StructurizrClient structurizrClient;
     private final Workspace workspace;
     private final StructurizrProperties properties;
+    private final ApplicationContext applicationContext;
 
-    public StructurizrService(StructurizrClient structurizrClient, Workspace workspace, StructurizrProperties properties) {
+    public StructurizrService(StructurizrClient structurizrClient, Workspace workspace, StructurizrProperties properties, ApplicationContext applicationContext) {
         this.structurizrClient = structurizrClient;
         this.workspace = workspace;
         this.properties = properties;
+        this.applicationContext = applicationContext;
     }
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        List<ModelPostProcessor> postProcessors = event.getApplicationContext()
-                .getBeansOfType(ModelPostProcessor.class).values().stream().collect(Collectors.toList());
+    public void run(String... args) {
+        List<ModelPostProcessor> postProcessors = new ArrayList<>(applicationContext
+                .getBeansOfType(ModelPostProcessor.class).values());
 
         AnnotationAwareOrderComparator.sort(postProcessors);
 
@@ -56,9 +58,9 @@ public class StructurizrService implements ApplicationListener<ContextRefreshedE
             LOG.info("Added {} implicit relationships.", relationships.size());
         }
 
-        event.getApplicationContext()
+        applicationContext
                 .getBeansOfType(ViewProvider.class)
-                .values().stream()
+                .values()
                 .forEach(vp -> vp.createViews(workspace.getViews()));
 
 
@@ -70,5 +72,6 @@ public class StructurizrService implements ApplicationListener<ContextRefreshedE
                 throw new RuntimeException(e);
             }
         }
+
     }
 }

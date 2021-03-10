@@ -6,6 +6,7 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.encryption.AesEncryptionStrategy;
 import com.structurizr.model.Model;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +21,8 @@ public class StructurizrAutoConfiguration {
 
     @Bean
     public StructurizrService structurizrService(StructurizrClient structurizrClient, Workspace workspace,
-                                                 StructurizrProperties properties) {
-         return new StructurizrService(structurizrClient, workspace, properties);
+                                                 StructurizrProperties properties, ApplicationContext applicationContext) {
+         return new StructurizrService(structurizrClient, workspace, properties, applicationContext);
     }
 
     @Bean
